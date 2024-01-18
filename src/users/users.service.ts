@@ -14,4 +14,12 @@ export class UsersService {
     const newUser = this.usersRepository.create(user);
     return this.usersRepository.save(newUser);
   }
+  getUsers(): Promise<User[]> {
+    const users = this.usersRepository.find();
+    return users;
+  }
+  getUser(id : number): Promise<User> {
+    const user = this.usersRepository.findOneBy({id : id})
+    return user
+  }
 }
