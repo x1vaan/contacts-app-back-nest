@@ -5,10 +5,6 @@ import createUserDto from './dto/create-user.dto';
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
-  @Post('register')
-  createUser(@Body() newUser: createUserDto) {
-    return this.userService.createUser(newUser);
-  }
   @Get()
   getUsers() {
     return this.userService.getUsers();
