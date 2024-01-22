@@ -26,4 +26,8 @@ export class UsersService {
     const user = this.usersRepository.findOneBy({ email: email });
     return user;
   }
+  deleteUserById(id: number): Promise<any> {
+    const deleted = this.usersRepository.delete({ id: id });
+    return deleted
+  }
 }
