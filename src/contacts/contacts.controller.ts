@@ -1,7 +1,22 @@
-import { Body, Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { contactDto } from './dto/contact.dto';
 import { AuthGuard } from 'src/auth/guard/auth.guard';
+import { Request as Req } from 'express';
+
+interface requestWithUser extends Req {
+  user: {
+    id: number;
+    iat: number;
+  };
+}
 
 @Controller('contacts')
 export class ContactsController {
@@ -9,8 +24,7 @@ export class ContactsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  createContact(@Body() newContact: contactDto, @Request() req : any) {
-    console.log(req.user)
-    return this.contactService.createContact(newContact, req.id);
+  createContact(@Body() newContact: contactDto,@Request() req: requestWithUser) {
+    return this.contactService.createContact(newContact, req.user.id);
   }
 }
