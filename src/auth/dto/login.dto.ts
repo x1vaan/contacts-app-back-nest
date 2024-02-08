@@ -3,10 +3,6 @@ import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class loginDto {
   @Transform(({ value }) => value.trim())
-  @IsString()
-  username: string;
-
-  @Transform(({ value }) => value.trim())
   @IsEmail()
   email: string;
 

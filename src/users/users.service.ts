@@ -28,6 +28,13 @@ export class UsersService {
   }
   deleteUserById(id: number): Promise<any> {
     const deleted = this.usersRepository.delete({ id: id });
-    return deleted
+    return deleted;
+  }
+  getContacts(id: number): Promise<any> {
+    const contacts = this.usersRepository.findOne({
+      where: { id: id },
+      relations: { contacts: true },
+    });
+    return contacts;
   }
 }

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BeforeInsert } from 'typeorm';
+import { Contact } from 'src/contacts/contact.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -22,4 +23,12 @@ export class User {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
+
+  @OneToMany(() => Contact, (contact) => contact.user, { onDelete: 'CASCADE' })
+  contacts: Contact[];
+
+  // @BeforeInsert()
+  //   async hashPassword() {
+  //       this.password = await bcrypt.hash(this.password, 8);
+  //   }
 }
