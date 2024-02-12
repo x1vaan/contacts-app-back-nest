@@ -33,12 +33,13 @@ export class UsersService {
     return deleted;
   }
   getContacts(id: number): Promise<any> {
-    // const contacts = this.usersRepository.findOne({
-    //   where: { id: id },
-    //   relations: { contacts: true },
-    //   select: ['contacts'],
-    // }); Podemos hacerlo de esta forma pero DEMORA MUCHO MAS
-    const contacts = this.contactsService.getContacts(id); // o crear el servicio en contacts y llamarlo desde nuestro servicio ESTA ES MUCHO MAS RAPIDA
+    const contacts = this.usersRepository.findOne({
+      where: { id: id },
+      relations: { contacts: true },
+      select: ['contacts', 'id', 'email', 'name'],
+    }); // Podemos hacerlo de esta forma pero DEMORA MUCHO MAS
+    // const contacts = this.contactsService.getContacts(id); // o crear el servicio en contacts y llamarlo desde nuestro servicio ESTA ES MUCHO MAS RAPIDA
+    // esta ultima no funciona, no trae los contactos de cada uno.
     return contacts;
   }
 }

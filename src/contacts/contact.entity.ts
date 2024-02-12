@@ -12,7 +12,7 @@ export class Contact {
   @Column()
   number: number;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column({ type: 'bytea', nullable: true })
