@@ -5,6 +5,9 @@ import {
   Post,
   UseGuards,
   Request,
+  Delete,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { contactDto } from './dto/contact.dto';
@@ -24,7 +27,15 @@ export class ContactsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  createContact(@Body() newContact: contactDto,@Request() req: requestWithUser) {
+  createContact(
+    @Body() newContact: contactDto,
+    @Request() req: requestWithUser,
+  ) {
     return this.contactService.createContact(newContact, req.user.id);
+  }
+  @Delete(":id")
+  @UseGuards(AuthGuard)
+  deleteContact(@Param('id', ParseIntPipe) id: number) {
+    return this.contactService.deleteContact(id)
   }
 }

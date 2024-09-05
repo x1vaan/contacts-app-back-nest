@@ -21,6 +21,12 @@ export class Contact {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
+  @Column({ type: 'timestamp', nullable: true })
+  birthday_date: Date;
+
+  @Column({ type: 'text', nullable: true })
+  notes: string;
+
   @ManyToOne(() => User, (user) => user.id)
   user: number;
 }

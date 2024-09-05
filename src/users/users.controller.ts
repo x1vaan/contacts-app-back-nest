@@ -6,9 +6,11 @@ import {
   Param,
   ParseIntPipe,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { registerDto } from 'src/auth/dto/register.dto';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -34,6 +36,7 @@ export class UsersController {
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.userService.deleteUserById(id);
   }
+  @UseGuards(AuthGuard)
   @Get(':id/contacts')
   getContacts(@Param('id', ParseIntPipe) id: number){
     return this.userService.getContacts(id)

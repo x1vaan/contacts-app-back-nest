@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { registerDto } from 'src/auth/dto/register.dto';
-import { ContactsService } from 'src/contacts/contacts.service';
+// import { ContactsService } from 'src/contacts/contacts.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
-    private contactsService: ContactsService,
+    // private contactsService: ContactsService,
   ) {}
 
   createUser(user: registerDto): Promise<User> {
@@ -32,14 +32,14 @@ export class UsersService {
     const deleted = this.usersRepository.delete({ id: id });
     return deleted;
   }
-  getContacts(id: number): Promise<any> {
-    const contacts = this.usersRepository.findOne({
+  async getContacts(id: number): Promise<any> {
+    const userContacts = await this.usersRepository.findOne({
       where: { id: id },
       relations: { contacts: true },
       select: ['contacts', 'id', 'email', 'name'],
     }); // Podemos hacerlo de esta forma pero DEMORA MUCHO MAS
     // const contacts = this.contactsService.getContacts(id); // o crear el servicio en contacts y llamarlo desde nuestro servicio ESTA ES MUCHO MAS RAPIDA
     // esta ultima no funciona, no trae los contactos de cada uno.
-    return contacts;
+    return userContacts.contacts;
   }
 }

@@ -18,13 +18,13 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.get('URL'),
-        database: configService.get('DATABASE'),
-        username: configService.get('USERNAME'),
-        password: configService.get('PASSWORD'),
-        port: parseInt(configService.get('PORT')),
+        database: configService.get('PGDATABASE'),
+        username: configService.get('PGUSER'),
+        password: configService.get('PGPASSWORD'),
+        port: 5432,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
+        ssl: true
       }),
       inject: [ConfigService],
     }),

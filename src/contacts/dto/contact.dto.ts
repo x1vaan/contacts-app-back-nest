@@ -1,4 +1,4 @@
-import { IsEmail, IsNumber, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class contactDto {
     @IsString()
@@ -10,4 +10,8 @@ export class contactDto {
 
     @IsEmail()
     email : string
+
+    @IsString()
+    @MaxLength(250)
+    notes : string
 }
