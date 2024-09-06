@@ -33,9 +33,14 @@ export class ContactsController {
   ) {
     return this.contactService.createContact(newContact, req.user.id);
   }
-  @Delete(":id")
+  @Delete(':id')
   @UseGuards(AuthGuard)
   deleteContact(@Param('id', ParseIntPipe) id: number) {
-    return this.contactService.deleteContact(id)
+    return this.contactService.deleteContact(id);
+  }
+  @Get(':id')
+  @UseGuards(AuthGuard)
+  getContact(@Param('id', ParseIntPipe) id: number) {
+    return this.contactService.getContact(id);
   }
 }

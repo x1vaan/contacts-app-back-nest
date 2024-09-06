@@ -20,6 +20,10 @@ export class ContactsService {
   }
   async deleteContact(id: number): Promise<DeleteResult> {
     const contactDeleted = await this.contactsRepository.delete(id);
-    return contactDeleted
+    return contactDeleted;
+  }
+  async getContact(id: number): Promise<Contact> {
+    const contact = await this.contactsRepository.findOneBy({ id: id });
+    return contact;
   }
 }
