@@ -1,12 +1,15 @@
-FROM node:16
+FROM node:18
 
 WORKDIR /app
 
-COPY . /app
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
 
-RUN npm install 
+# Install dependencies
+RUN npm install
 
-CMD ["npm" ,"install" ,"-g", "node-gyp"]
-CMD ["npm" ,"install" ,"bcrypt"]
+COPY . .
 
-CMD ["npm", "run", "start"]
+EXPOSE 3001
+
+CMD ["npm", "run", "start:prod"]
