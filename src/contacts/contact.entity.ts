@@ -9,10 +9,10 @@ export class Contact {
   @Column({ nullable: false })
   name: string;
 
-  @Column()
+  @Column({ type: 'bigint', nullable: true })
   number: number;
 
-  @Column()
+  @Column({ type: 'varchar', nullable: true })
   email: string;
 
   @Column({ type: 'bytea', nullable: true })
